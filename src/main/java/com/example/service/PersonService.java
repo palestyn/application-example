@@ -21,20 +21,42 @@ public class PersonService {
 		final Person person = new Person();
 		person.setFullName(fullName);
 
+		// 1st transaction
 		try {
-			trx.doWithEntityManager(Transactional.TxType.REQUIRED, em -> em.persist(person));
+			trx.doWithEntityManager(Transactional.TxType.REQUIRED, em -> {
+				em.persist(person);
+			});
 		} catch(PersistenceException e) {
 			logger.info("Exception", e);
 		}
 		
-		final Person person2 = new Person();
-		person2.setFullName(fullName);
-		try {
-			trx.doWithEntityManager(Transactional.TxType.SUPPORTS, em -> em.persist(person2));
+		Person output = null;
+
+		//2nd transaction
+		//will throw java.sql.SQLIntegrityConstraintViolationException: Duplicate entry
+		try {			
+			Person person2 = new Person();
+			person2.setFullName(fullName); 
+			output = trx.<Person>doWithEntityManager(Transactional.TxType.REQUIRED, em -> {
+				em.persist(person2);
+				return person2;
+			});
 		} catch(PersistenceException e) {
 			logger.info("Exception", e);
 		}
-
-		return person;
+		
+		// 3rd transaction
+		try {			
+			Person person2 = new Person();
+			person2.setFullName(fullName+"."); 
+			output = trx.<Person>doWithEntityManager(Transactional.TxType.REQUIRED, em -> {
+				em.persist(person2);
+				return person2;
+			});
+		} catch(PersistenceException e) {
+			logger.info("Exception", e);
+		}
+		
+		return output;
 	}
 }
