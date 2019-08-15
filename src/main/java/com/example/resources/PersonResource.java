@@ -10,6 +10,8 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
+import org.eclipse.microprofile.config.inject.ConfigProperty;
+
 import com.example.domain.Person;
 import com.example.service.PersonService;
 
@@ -24,5 +26,15 @@ public class PersonResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Person addPerson(@Context ServletContext context, @QueryParam("fullName") String fullName) {
 		return personService.create(fullName);
+	}
+	
+	@Inject
+	@ConfigProperty(name = "some.config.key")
+	String configValue;
+	
+	@Path("config")
+	@GET
+	public String configKey() {
+		return "This is from microprofile config: "+configValue;
 	}
 }
