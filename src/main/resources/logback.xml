@@ -23,6 +23,7 @@
 	</appender>
 
 	<logger name="com.example" level="debug"/>
+	<logger name="org.palestyn" level="debug"/>
 	
 	<root level="info">
 		<appender-ref ref="STDOUT" />		
