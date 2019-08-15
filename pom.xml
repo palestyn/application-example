@@ -26,6 +26,19 @@
 			<artifactId>palestyn-container</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
+		
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>8.0.15</version>
+			<exclusions>
+				<exclusion>
+					<groupId>com.google.protobuf</groupId>
+					<artifactId>protobuf-java</artifactId>
+				</exclusion>
+			</exclusions>
+		</dependency>		
 	</dependencies>
 
 	<build>
