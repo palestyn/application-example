@@ -4,19 +4,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.enterprise.event.Observes;
-import javax.enterprise.inject.Produces;
-import javax.sql.DataSource;
-import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
-import javax.ws.rs.ext.Provider;
 
 import org.palestyn.events.ApplicationStarted;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.example.resources.PersonResource;
-import com.zaxxer.hikari.HikariConfig;
-import com.zaxxer.hikari.HikariDataSource;
 
 // @ApplicationPath() mapping will be ignored
 // use .setContextPath("/example") in Launcher
@@ -31,7 +25,7 @@ public class ExampleApplication extends Application {
 		return set;
 	}
 	
-	public void onApplicationStarted(@Observes ApplicationStarted e) {
+	public void onApplicationStarted(@Observes ApplicationStarted event) {
 		logger.info("Application started..");
 	}
 }

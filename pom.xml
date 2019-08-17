@@ -20,10 +20,10 @@
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 
-		<!-- palestyn container -->
+		<!-- palestyn undertow container -->
 		<dependency>
 			<groupId>palestyn</groupId>
-			<artifactId>palestyn-container</artifactId>
+			<artifactId>palestyn-container-undertow</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		
